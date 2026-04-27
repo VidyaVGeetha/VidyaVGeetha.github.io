@@ -8,6 +8,7 @@ const searchInput = document.querySelector("#searchInput");
 const categoryFilter = document.querySelector("#categoryFilter");
 const techFilter = document.querySelector("#techFilter");
 const categoryOverview = document.querySelector("#categoryOverview");
+const toolGroups = document.querySelector("#toolGroups");
 const totalProjects = document.querySelector("#totalProjects");
 
 function classifyProject(name, description) {
@@ -87,6 +88,50 @@ function refreshFilters() {
   setOptions(techFilter, technologies, "All technologies");
 }
 
+function renderToolGroups() {
+  const grouped = projects.reduce((groups, project) => {
+    groups[project.tech] ||= [];
+    groups[project.tech].push(project);
+    return groups;
+  }, {});
+
+  const tools = Object.entries(grouped)
+    .sort((a, b) => b[1].length - a[1].length || a[0].localeCompare(b[0]));
+
+  toolGroups.innerHTML = tools.map(([tool, toolProjects]) => {
+    const topProjects = toolProjects.slice(0, 5);
+    return `
+      <article class="tool-group">
+        <div class="tool-group-header">
+          <div>
+            <span>${escapeHTML(tool)}</span>
+            <h3>${escapeHTML(tool)} Projects</h3>
+          </div>
+          <strong>${toolProjects.length}</strong>
+        </div>
+        <ul>
+          ${topProjects.map((project) => `
+            <li>
+              <a href="${escapeHTML(project.url)}" target="_blank" rel="noreferrer">${escapeHTML(project.name.replaceAll("-", " "))}</a>
+            </li>
+          `).join("")}
+        </ul>
+        <button class="tool-filter-button" type="button" data-tool="${escapeHTML(tool)}">Show ${escapeHTML(tool)} projects</button>
+      </article>
+    `;
+  }).join("");
+
+  toolGroups.querySelectorAll(".tool-filter-button").forEach((button) => {
+    button.addEventListener("click", () => {
+      techFilter.value = button.dataset.tool;
+      categoryFilter.value = "All";
+      searchInput.value = "";
+      renderProjects();
+      document.querySelector("#projects").scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  });
+}
+
 function renderCategoryOverview() {
   const categories = [...new Set(projects.map((project) => project.category))].sort();
   categoryOverview.innerHTML = categories.map((category) => {
@@ -135,6 +180,7 @@ function updateProjectData(nextProjects) {
   totalProjects.textContent = projects.length;
   refreshFilters();
   renderCategoryOverview();
+  renderToolGroups();
   renderProjects();
 }
 
