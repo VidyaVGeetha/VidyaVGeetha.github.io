@@ -56,10 +56,58 @@
 
       <section class="section band">
         <div class="section-heading">
-          <p class="eyebrow">Focus Areas</p>
-          <h2>Classified by the work each project proves</h2>
+          <p class="eyebrow">GitHub Dashboard</p>
+          <h2>Portfolio overview in a Power BI-style view</h2>
         </div>
-        <div id="categoryOverview" class="category-grid" aria-label="Project category overview"></div>
+        <div class="dashboard-grid" aria-label="GitHub project dashboard">
+          <article class="dashboard-card kpi-card">
+            <span>Total Projects</span>
+            <strong id="dashboardTotalProjects">Live</strong>
+            <p>Loaded from public GitHub repositories</p>
+          </article>
+          <article class="dashboard-card kpi-card">
+            <span>Top Tool</span>
+            <strong id="dashboardTopTool">Loading</strong>
+            <p id="dashboardTopToolCount">Calculating project mix</p>
+          </article>
+          <article class="dashboard-card kpi-card">
+            <span>Top Classification</span>
+            <strong id="dashboardTopCategory">Loading</strong>
+            <p id="dashboardTopCategoryCount">Calculating focus area</p>
+          </article>
+          <article class="dashboard-card kpi-card">
+            <span>Latest Update</span>
+            <strong id="dashboardLatestDate">Live</strong>
+            <p>Most recently pushed project</p>
+          </article>
+          <article class="dashboard-card chart-card wide-card">
+            <div class="dashboard-card-heading">
+              <div>
+                <span>Projects by Tool</span>
+                <h3>Tool distribution</h3>
+              </div>
+            </div>
+            <div id="toolChart" class="bar-chart"></div>
+          </article>
+          <article class="dashboard-card chart-card">
+            <div class="dashboard-card-heading">
+              <div>
+                <span>Projects by Classification</span>
+                <h3>Focus mix</h3>
+              </div>
+            </div>
+            <div id="categoryOverview" class="mini-chart" aria-label="Project category overview"></div>
+          </article>
+          <article class="dashboard-card chart-card wide-card">
+            <div class="dashboard-card-heading">
+              <div>
+                <span>Latest GitHub Activity</span>
+                <h3>Recently updated projects</h3>
+              </div>
+            </div>
+            <div id="recentProjects" class="recent-list"></div>
+          </article>
+        </div>
       </section>
 
       <section id="tools" class="section">

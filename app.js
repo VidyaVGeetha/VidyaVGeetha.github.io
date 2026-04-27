@@ -10,6 +10,14 @@ const techFilter = document.querySelector("#techFilter");
 const categoryOverview = document.querySelector("#categoryOverview");
 const toolGroups = document.querySelector("#toolGroups");
 const totalProjects = document.querySelector("#totalProjects");
+const dashboardTotalProjects = document.querySelector("#dashboardTotalProjects");
+const dashboardTopTool = document.querySelector("#dashboardTopTool");
+const dashboardTopToolCount = document.querySelector("#dashboardTopToolCount");
+const dashboardTopCategory = document.querySelector("#dashboardTopCategory");
+const dashboardTopCategoryCount = document.querySelector("#dashboardTopCategoryCount");
+const dashboardLatestDate = document.querySelector("#dashboardLatestDate");
+const toolChart = document.querySelector("#toolChart");
+const recentProjects = document.querySelector("#recentProjects");
 
 function classifyProject(name, description) {
   const text = `${name} ${description}`.toLowerCase();
@@ -86,6 +94,72 @@ function refreshFilters() {
   const technologies = [...new Set(projects.map((project) => project.tech))].sort();
   setOptions(categoryFilter, categories, "All classifications");
   setOptions(techFilter, technologies, "All technologies");
+}
+
+function countBy(projectsToCount, key) {
+  return projectsToCount.reduce((counts, project) => {
+    counts[project[key]] = (counts[project[key]] || 0) + 1;
+    return counts;
+  }, {});
+}
+
+function sortedCounts(counts) {
+  return Object.entries(counts).sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
+}
+
+function renderHorizontalBars(container, rows, filterType) {
+  const max = Math.max(...rows.map(([, count]) => count), 1);
+  container.innerHTML = rows.map(([label, count]) => `
+    <button class="bar-row" type="button" data-filter-type="${filterType}" data-filter-value="${escapeHTML(label)}">
+      <span class="bar-label">${escapeHTML(label)}</span>
+      <span class="bar-track"><span style="width: ${(count / max) * 100}%"></span></span>
+      <strong>${count}</strong>
+    </button>
+  `).join("");
+
+  container.querySelectorAll(".bar-row").forEach((button) => {
+    button.addEventListener("click", () => {
+      searchInput.value = "";
+      if (button.dataset.filterType === "tool") {
+        techFilter.value = button.dataset.filterValue;
+        categoryFilter.value = "All";
+      } else {
+        categoryFilter.value = button.dataset.filterValue;
+        techFilter.value = "All";
+      }
+      renderProjects();
+      document.querySelector("#projects").scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  });
+}
+
+function renderDashboard() {
+  const toolCounts = sortedCounts(countBy(projects, "tech"));
+  const categoryCounts = sortedCounts(countBy(projects, "category"));
+  const [topTool, topToolCount] = toolCounts[0] || ["None", 0];
+  const [topCategory, topCategoryCount] = categoryCounts[0] || ["None", 0];
+  const latestProject = [...projects].sort((a, b) => b.updated.localeCompare(a.updated))[0];
+
+  dashboardTotalProjects.textContent = projects.length;
+  dashboardTopTool.textContent = topTool;
+  dashboardTopToolCount.textContent = `${topToolCount} project${topToolCount === 1 ? "" : "s"}`;
+  dashboardTopCategory.textContent = topCategory;
+  dashboardTopCategoryCount.textContent = `${topCategoryCount} project${topCategoryCount === 1 ? "" : "s"}`;
+  dashboardLatestDate.textContent = latestProject?.updated || "Live";
+
+  renderHorizontalBars(toolChart, toolCounts.slice(0, 8), "tool");
+  renderHorizontalBars(categoryOverview, categoryCounts, "category");
+
+  recentProjects.innerHTML = [...projects]
+    .sort((a, b) => b.updated.localeCompare(a.updated))
+    .slice(0, 6)
+    .map((project) => `
+      <a class="recent-item" href="${escapeHTML(project.url)}" target="_blank" rel="noreferrer">
+        <span>${escapeHTML(project.updated)}</span>
+        <strong>${escapeHTML(project.name.replaceAll("-", " "))}</strong>
+        <em>${escapeHTML(project.tech)} · ${escapeHTML(project.category)}</em>
+      </a>
+    `).join("");
 }
 
 function renderToolGroups() {
@@ -179,7 +253,7 @@ function updateProjectData(nextProjects) {
   projects = nextProjects;
   totalProjects.textContent = projects.length;
   refreshFilters();
-  renderCategoryOverview();
+  renderDashboard();
   renderToolGroups();
   renderProjects();
 }
@@ -194,6 +268,16 @@ fetchGitHubProjects()
   .then(updateProjectData)
   .catch(() => {
     totalProjects.textContent = "Live";
+    dashboardTotalProjects.textContent = "Live";
+    dashboardTopTool.textContent = "Unavailable";
+    dashboardTopToolCount.textContent = "Refresh to try again";
+    dashboardTopCategory.textContent = "Unavailable";
+    dashboardTopCategoryCount.textContent = "Refresh to try again";
+    dashboardLatestDate.textContent = "Live";
     visibleCount.textContent = "GitHub projects unavailable";
+    toolChart.innerHTML = `<p class="empty">Tool chart could not be loaded right now.</p>`;
+    categoryOverview.innerHTML = `<p class="empty">Classification chart could not be loaded right now.</p>`;
+    recentProjects.innerHTML = `<p class="empty">Recent projects could not be loaded right now.</p>`;
+    toolGroups.innerHTML = `<p class="empty">Tool-based project groups could not be loaded right now.</p>`;
     projectGrid.innerHTML = `<p class="empty">GitHub projects could not be loaded right now. Please refresh the page later.</p>`;
   });
