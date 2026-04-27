@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vidya Vishnuvihar Geetha | Data Analyst Portfolio</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="#home" aria-label="Vidya portfolio home">Vidya Vishnuvihar Geetha</a>
+      <nav aria-label="Portfolio sections">
+        <a href="#projects">Projects</a>
+        <a href="#experience">Experience</a>
+        <a href="#certifications">Certifications</a>
+        <a href="#skills">Skills</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <main id="home">
+      <section class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">Data Analyst | Business Analyst | Greater Edinburgh Area</p>
+          <h1>Power BI, SQL, Python, KPI dashboards, and business analytics portfolio.</h1>
+          <p>
+            Vidya Vishnuvihar Geetha is a Data Analyst and Business Analyst with 9+ years
+            of public-sector data experience, specialising in Power BI, SQL, Python, KPI
+            dashboards, reporting automation, and stakeholder-focused insight delivery.
+          </p>
+          <div class="hero-actions">
+            <a class="button primary" href="#projects">Explore Projects</a>
+            <a class="button" href="https://github.com/VidyaVGeetha" target="_blank" rel="noreferrer">GitHub</a>
+            <a class="button" href="https://www.linkedin.com/in/vidyavgk" target="_blank" rel="noreferrer">LinkedIn</a>
+          </div>
+        </div>
+        <aside class="hero-panel" aria-label="Portfolio summary">
+          <figure class="profile-photo">
+            <img src="assets/vidya-professional-headshot.png?v=2" alt="Vidya Vishnuvihar Geetha" />
+          </figure>
+          <div>
+            <strong id="totalProjects">74</strong>
+            <span>GitHub projects</span>
+          </div>
+          <div>
+            <strong>9+</strong>
+            <span>years analytics experience</span>
+          </div>
+          <div>
+            <strong>2,471</strong>
+            <span>LinkedIn followers</span>
+          </div>
+        </aside>
+      </section>
+
+      <section class="section band">
+        <div class="section-heading">
+          <p class="eyebrow">Focus Areas</p>
+          <h2>Classified by the work each project proves</h2>
+        </div>
+        <div id="categoryOverview" class="category-grid" aria-label="Project category overview"></div>
+      </section>
+
+      <section id="projects" class="section">
+        <div class="section-heading inline">
+          <div>
+            <p class="eyebrow">GitHub Portfolio</p>
+            <h2>Search and filter projects</h2>
+          </div>
+          <div class="count" id="visibleCount">Showing 74 projects</div>
+        </div>
+
+        <div class="controls" aria-label="Project search and filters">
+          <label class="search-field">
+            <span>Search</span>
+            <input id="searchInput" type="search" placeholder="Search project, tool, or topic" />
+          </label>
+          <label>
+            <span>Classification</span>
+            <select id="categoryFilter">
+              <option value="All">All classifications</option>
+            </select>
+          </label>
+          <label>
+            <span>Technology</span>
+            <select id="techFilter">
+              <option value="All">All technologies</option>
+            </select>
+          </label>
+        </div>
+        <p class="live-note">
+          Projects load from Vidya's public GitHub repositories when the page opens. A saved copy is used if GitHub is unavailable.
+        </p>
+
+        <div id="projectGrid" class="project-grid"></div>
+      </section>
+
+      <section id="experience" class="section band">
+        <div class="section-heading">
+          <p class="eyebrow">Experience</p>
+          <h2>Public-sector data, reporting, and quality delivery</h2>
+        </div>
+        <div class="timeline">
+          <article class="experience-item">
+            <div class="experience-date">01/2024 - 02/2025</div>
+            <div>
+              <span>Scottish Tech Army · Edinburgh, UK</span>
+              <h3>Volunteer QA Analyst</h3>
+              <ul>
+                <li>Identified and reported 30+ functional and UI issues through user acceptance testing.</li>
+                <li>Helped ensure product consistency across platforms and improved release confidence.</li>
+                <li>Coordinated with cross-functional teams using Trello and Notion in an agile workflow.</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="experience-item">
+            <div class="experience-date">01/2014 - 01/2023</div>
+            <div>
+              <span>Government of Kerala, India · Official title: IT Assistant</span>
+              <h3>Data Analyst / MIS Analyst</h3>
+              <ul>
+                <li>Managed MIS and employment data for a large-scale public-sector programme.</li>
+                <li>Developed Excel dashboards that reduced manual reporting effort by 40-60%.</li>
+                <li>Analysed 50K+ employment records to forecast wage trends and improve budget planning accuracy by around 20%.</li>
+                <li>Translated complex datasets into KPI reports, wage forecasts, and actionable insights for decision-making.</li>
+              </ul>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="certifications" class="section band">
+        <div class="section-heading">
+          <p class="eyebrow">Certifications</p>
+          <h2>Certifications and academic credentials</h2>
+        </div>
+        <div class="cert-grid">
+          <article>
+            <span>BCS</span>
+            <h3>Business Analysis Foundation Certificate: Business Analytics</h3>
+            <p>United Kingdom · 12/2025</p>
+          </article>
+          <article>
+            <span>IBM / Coursera</span>
+            <h3>IBM Data Analyst Professional Certification</h3>
+            <p>Data Analysis · 06/2025 - 01/2026</p>
+          </article>
+          <article>
+            <span>Microsoft</span>
+            <h3>Power BI Data Analyst Professional Certificate</h3>
+            <p>Data Visualisation · 01/2026 · Ongoing</p>
+          </article>
+          <article>
+            <span>Department of Technical Education, Kerala</span>
+            <h3>P.G.D.C.A: Computer Application</h3>
+            <p>Distinction · 01/2006 - 03/2007</p>
+          </article>
+          <article>
+            <span>University of Kerala</span>
+            <h3>Bachelor of Science: Zoology</h3>
+            <p>First class · 03/2003 - 03/2006</p>
+          </article>
+          <article>
+            <span>Mahatma Gandhi University</span>
+            <h3>B.L.I.Sc: Library and Information Science</h3>
+            <p>Kottayam</p>
+          </article>
+        </div>
+        <p class="source-note">
+          Certification details are taken from Vidya's CV. The provided LinkedIn PDF confirms the
+          profile header, headline, location, and follower count, but does not include the certifications section.
+        </p>
+      </section>
+
+      <section id="skills" class="section">
+        <div class="section-heading">
+          <p class="eyebrow">Skills</p>
+          <h2>Analytics toolkit</h2>
+        </div>
+        <div class="skill-cloud">
+          <span>Power BI</span><span>DAX</span><span>Power Query</span><span>SQL</span>
+          <span>Python</span><span>Pandas</span><span>NumPy</span><span>Scikit-learn</span>
+          <span>Plotly</span><span>Dash</span><span>Matplotlib</span><span>Seaborn</span>
+          <span>IBM Cognos</span><span>Excel</span><span>ETL</span><span>Web Scraping</span>
+          <span>APIs</span><span>EDA</span><span>Regression</span><span>Data Storytelling</span>
+        </div>
+      </section>
+    </main>
+
+    <footer id="contact">
+      <div>
+        <strong>Vidya Vishnuvihar Geetha</strong>
+        <p>Greater Edinburgh Area · Open to UK roles · No sponsorship required</p>
+      </div>
+      <div class="footer-links">
+        <a href="mailto:vidyavgk@gmail.com">vidyavgk@gmail.com</a>
+        <a href="tel:+447771084624">+44 777 108 4624</a>
+        <a href="https://github.com/VidyaVGeetha" target="_blank" rel="noreferrer">GitHub</a>
+        <a href="https://www.linkedin.com/in/vidyavgk" target="_blank" rel="noreferrer">LinkedIn</a>
+      </div>
+    </footer>
+
+    <script src="app.js"></script>
+  </body>
+</html>
