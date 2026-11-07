@@ -54,10 +54,6 @@
       /* Career journey timeline and qualification cards (jr-/q- prefix) */
       .jr-work { --jr: #0f766e; } .jr-volunteering { --jr: #b45309; } .jr-certification { --jr: #6d28d9; }
       .jr-education { --jr: #1d4ed8; } .jr-milestone { --jr: #6b7280; } .jr-all { --jr: #6b7280; }
-      @media (prefers-color-scheme: dark) {
-        .jr-work { --jr: #2dd4bf; } .jr-volunteering { --jr: #fbbf24; } .jr-certification { --jr: #a78bfa; }
-        .jr-education { --jr: #60a5fa; } .jr-milestone, .jr-all { --jr: #9ca3af; }
-      }
       .jr-glance { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-bottom: 16px; }
       .jr-stat { text-align: left; padding: 14px 16px; border: 1px solid rgba(127, 127, 127, 0.25); border-left: 4px solid var(--jr); border-radius: 12px; background: none; color: inherit; font: inherit; cursor: pointer; }
       .jr-stat strong { display: block; font-size: 1.6rem; line-height: 1.2; }
@@ -90,14 +86,47 @@
         .jr-actions { width: 100%; }
         .jr-actions .button { flex: 1; }
       }
+      /* Career roadmap (rm- prefix) */
+      .hero { min-height: auto; }
+      .hero h1 { font-size: clamp(2.2rem, 4.6vw, 4.2rem); line-height: 1.04; }
+      .rm-section { padding-top: clamp(32px, 5vw, 56px); }
+      .rm-road { position: relative; margin: 0 auto; max-width: 1100px; }
+      .rm-svg { display: block; width: 100%; height: auto; overflow: visible; }
+      .rm-when { font: 800 14px/1 Inter, ui-sans-serif, system-ui, sans-serif; letter-spacing: 0.02em; }
+      .rm-label { font: 600 15px/1 Inter, ui-sans-serif, system-ui, sans-serif; fill: var(--ink, #17201b); }
+      .rm-stop { cursor: pointer; outline: none; }
+      .rm-stop:hover .rm-label, .rm-stop:focus-visible .rm-label { text-decoration: underline; }
+      .rm-stop:focus-visible > g > g > path { stroke: var(--ink, #17201b); stroke-width: 3; }
+      .rm-stop.is-active .rm-label { font-weight: 800; }
+      .rm-ring { animation: rm-pulse 1.8s ease-out infinite; transform-box: fill-box; transform-origin: center; }
+      @keyframes rm-pulse { 0% { opacity: 0.9; transform: scale(0.8); } 100% { opacity: 0; transform: scale(1.5); } }
+      .rm-animate .rm-stop { opacity: 0; animation: rm-pop 0.45s ease-out forwards; }
+      @keyframes rm-pop { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: none; } }
+      .rm-panel { max-width: 760px; margin: 8px auto 0; }
+      .rm-panel-inner { padding: 18px 20px; background: var(--white, #fff); border: 1px solid var(--line, #d8ded7); border-top: 4px solid var(--rm); border-radius: 10px; box-shadow: 0 10px 30px rgba(18, 31, 24, 0.08); }
+      .rm-panel-inner h3 { margin: 4px 0 2px; font-size: 1.25rem; }
+      .rm-meta { display: flex; gap: 10px; align-items: center; margin: 0; color: var(--muted, #5b6760); font-size: 0.9rem; font-weight: 600; }
+      .rm-badge { padding: 2px 9px; border-radius: 999px; font-size: 0.72rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.04em; color: #fff; background: var(--rm); }
+      .rm-org { margin: 0 0 8px; color: var(--muted, #5b6760); }
+      .rm-panel-inner ul { margin: 0 0 14px; padding-left: 20px; }
+      .rm-panel-inner li { margin-bottom: 4px; }
+      .rm-nav { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+      .rm-nav .button { cursor: pointer; font: inherit; font-weight: 700; }
+      .rm-nav .button[disabled] { opacity: 0.4; cursor: default; }
+      .rm-count { color: var(--muted, #5b6760); font-size: 0.9rem; }
+      .rm-more { margin-left: auto; color: var(--accent-dark, #075847); font-weight: 700; }
+      @media (prefers-reduced-motion: reduce) { .rm-ring { animation: none; } }
+      @media (max-width: 820px) {
+        .topbar nav { flex-wrap: wrap; overflow: visible; row-gap: 6px; column-gap: 16px; font-size: 0.9rem; }
+      }
     </style>
   </head>
   <body>
     <header class="topbar">
       <a class="brand" href="#home" aria-label="Vidya portfolio home">Vidya Vishnuvihar Geetha</a>
       <nav aria-label="Portfolio sections">
-        <a href="#about">About</a>
-        <a href="#journey">Journey</a>
+        <a href="#roadmap">Roadmap</a>
+        <a href="#journey">Timeline</a>
         <a href="#featured-projects">Projects</a>
         <a href="#project-dashboard">Dashboard</a>
         <a href="#videos" id="navVideos" hidden>Videos</a>
@@ -111,7 +140,7 @@
       <section class="hero">
         <div class="hero-copy">
           <p class="eyebrow">Data Analyst | Winchburgh, Scotland</p>
-          <h1>From public-sector data operations to business intelligence and ESG analytics.</h1>
+          <h1>Data analyst turning public-sector and ESG data into clear, reliable reports.</h1>
           <p>
             Vidya is a data analyst with nine years' public-sector experience maintaining,
             reconciling and reporting on workforce and operational data. She now works as a
@@ -124,7 +153,8 @@
           </p>
           <p><strong>Full UK right to work — no visa sponsorship required.</strong></p>
           <div class="hero-actions">
-            <a class="button primary" href="#featured-projects">Explore Projects</a>
+            <a class="button primary" href="#roadmap">See my journey</a>
+            <a class="button" href="#featured-projects">Projects</a>
             <a class="button" href="https://github.com/VidyaVGeetha" target="_blank" rel="noreferrer">GitHub</a>
             <a class="button" href="https://www.linkedin.com/in/vidyavgk" target="_blank" rel="noreferrer">LinkedIn</a>
             <a class="button" href="Vidya Vishnuvihar Geetha - Curriculum Vitae.pdf" target="_blank" rel="noreferrer">Download CV</a>
@@ -149,29 +179,35 @@
         </aside>
       </section>
 
-      <section id="about" class="section">
+      <section id="roadmap" class="section rm-section" aria-labelledby="rmTitle">
         <div class="section-heading">
-          <p class="eyebrow">Professional Profile</p>
-          <h2>An evolving career in data, insight and technology</h2>
+          <p class="eyebrow">Career Roadmap</p>
+          <h2 id="rmTitle">From Kerala to Scotland: the journey so far</h2>
+          <p>Select any stop on the road to see what happened there.</p>
+        </div>
+        <div class="rm-road" id="rmRoad"></div>
+        <div class="rm-panel" id="rmPanel" aria-live="polite"></div>
+        <noscript><p>Turn on JavaScript to see the interactive roadmap, or <a href="Vidya Vishnuvihar Geetha - Curriculum Vitae.pdf">download the CV</a>.</p></noscript>
+      </section>
+
+      <section id="about" class="section band">
+        <div class="section-heading">
+          <p class="eyebrow">About</p>
+          <h2>Careful with data, clear with people</h2>
         </div>
         <p>
-          Vidya's career began with the Government of Kerala's rural employment programme
-          (MGNREGS), India's largest public employment scheme. For nine years she maintained,
-          reconciled and reported on worker, attendance and wage records, and prepared monthly
-          progress reports and performance indicators for block officials.
-        </p>
-        <p>
-          Since moving to Scotland she has volunteered as a QA and data analyst with Scottish
-          Tech Army, and now works as a Sustainability Analyst Intern at Klimado, building Python
-          validation workflows and automating ESG data collection. She is looking for data,
-          reporting and planning analyst roles in Scotland.
+          Nine years managing worker, wage and expenditure records for India's largest public
+          employment programme taught Vidya to keep data accurate and reports on time. In Scotland
+          she has added CompTIA Data+, IBM, Power BI and BCS qualifications, a year with Scottish
+          Tech Army and ESG data validation at Klimado. She is looking for data, reporting and
+          planning analyst roles in Scotland.
         </p>
       </section>
 
-      <section id="journey" class="section band">
+      <section id="journey" class="section">
         <div class="section-heading">
-          <p class="eyebrow">Career Journey</p>
-          <h2>Work, certifications and education over time</h2>
+          <p class="eyebrow">Full Timeline</p>
+          <h2>Every role, certificate and qualification</h2>
           <p>Select a category to filter, and open any step for details.</p>
         </div>
         <div class="jr-glance" id="jrGlance"></div>
@@ -323,5 +359,6 @@
 
     <script src="portfolio.js" defer></script>
     <script src="journey.js" defer></script>
+    <script src="roadmap.js" defer></script>
   </body>
 </html>
